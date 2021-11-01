@@ -32,6 +32,10 @@ void get_kth() { //第k小
 		printf("%lld\n",ans);
 	} 
 }
+void count() {
+	//如果k能用线性基表示出来,线性基能表示出这个数的方案为2^(s - tot)
+	//s为线性基插入过的次数,tot为线性基的大小
+}
 int main() {
 	int n;
 	cin >> n;
