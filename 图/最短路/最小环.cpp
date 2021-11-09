@@ -1,5 +1,6 @@
 /*
 必然是一个(u,v)边长+图删除(u,v)后的dis(u,v)
+dij同理，O(m(n+m)logm)
 */
 const int N = 405;
 int dis[N][N],val[N][N];
