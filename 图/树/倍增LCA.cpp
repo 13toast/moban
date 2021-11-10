@@ -20,7 +20,7 @@ void addedge(int u,int v) {
 }
 void dfs(int u) {
 	vis[u] = 1;
-	for (int i=0;i<tr[u].size;i++) {
+	for (int i=0;i<tr[u].size();i++) {
 		int v = tr[u][i].v;
 		if (!vis[v]) {
 			dep[v] = dep[u] + 1;
