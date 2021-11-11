@@ -1,6 +1,5 @@
 /*
 luogu3605
-
 */
 
 #include <bits/stdc++.h>
