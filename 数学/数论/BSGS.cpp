@@ -1,34 +1,44 @@
-#include <bits/stdc++.h>
-using namespace std;
-int a,b,x,p;
-typedef long long ll;
-unordered_map<ll,int> myhash;
-ll quick_pow(ll a,ll x,ll p) {
-	ll ret = 1;
-	for (ll i=a;x;x>>=1,i=(i*i)%p) if (x&1) ret = (ret*i)%p;
-	return ret%p;
+LL BSGS(LL a, LL b, LL p) { // a^x = b (mod p)
+    a %= p;
+    if (!a && !b) return 1;
+    if (!a) return -1;
+    static map<LL, LL> mp; mp.clear();
+    LL m = sqrt(p + 1.5);
+    LL v = 1;
+    FOR (i, 1, m + 1) {
+        v = v * a % p;
+        mp[v * b % p] = i;
+    }
+    LL vv = v;
+    FOR (i, 1, m + 1) {
+        auto it = mp.find(vv);
+        if (it != mp.end()) return i * m - it->second;
+        vv = vv * v % p;
+    }
+    return -1;
 }
-ll BSGS(ll a,ll b,ll c) { //pow(a,x)==b (%c) (a,c)==1 
-	myhash.clear();
-	int sqc = sqrt(c),j;
-	ll tmp = a*b%c;
-	for (int i=1;i<=sqc;++i) {
-		myhash.insert({tmp,i});
-		tmp = (tmp*a)%c;
-	}
-	ll aqp = quick_pow(a,sqc,c);
-	tmp = aqp;
-	for (int i=1;i<=sqc;++i) {
-		if (j=myhash[tmp]) return i*sqc-j;
-		tmp = (tmp*aqp)%c;
-	}
-	return -1;
-}
-int main() {
-	ll a,b,c;
-	cin >> c >> a >> b;
-	ll ans = BSGS(a,b,c);
-	if (ans == -1) cout << "no solution" << endl;
-	else cout << ans << endl;
-	return 0;
+LL exBSGS(LL a, LL b, LL p) { // a^x = b (mod p)
+    a %= p; b %= p;
+    if (a == 0) return b > 1 ? -1 : b == 0 && p != 1;
+    LL c = 0, q = 1;
+    while (1) {
+        LL g = __gcd(a, p);
+        if (g == 1) break;
+        if (b == 1) return c;
+        if (b % g) return -1;
+        ++c; b /= g; p /= g; q = a / g * q % p;
+    }
+    static map<LL, LL> mp; mp.clear();
+    LL m = sqrt(p + 1.5);
+    LL v = 1;
+    FOR (i, 1, m + 1) {
+        v = v * a % p;
+        mp[v * b % p] = i;
+    }
+    FOR (i, 1, m + 1) {
+        q = q * v % p;
+        auto it = mp.find(q);
+        if (it != mp.end()) return i * m - it->second + c;
+    }
+    return -1;
 }
