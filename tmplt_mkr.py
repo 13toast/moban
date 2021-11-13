@@ -1,6 +1,6 @@
 import os
 PATH = os.getcwd()
-ignore = [".git",".DS_store"]
+ignore = [".git",".DS_Store"]
 def addTitle(title,dep,fo) : 
 	str = ""
 	for i in range(dep) : str = str + "#"
@@ -49,6 +49,7 @@ def walkFile(mainDir,fo) :
 			continue
 		addTitle(currDir,depth,fo)	
 		for file in fileList :
+			print("Now: " + file)
 			if file.find(".cpp") > 0 :
 				filePath = os.path.join(root,file)
 				addCpp(filePath,file,fo)

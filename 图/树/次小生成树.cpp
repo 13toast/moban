@@ -1,16 +1,10 @@
-/* 
- * 次小生成树 
- * 求最小生成树时，用数组Max[i][j]来表示MST中i到j最大边权 
- * 求完后，直接枚举所有不在MST中的边，替换掉最大边权的边，更新答案 
- * 点的编号从0开始 
- */ 
 const int MAXN=110;
 const int INF=0x3f3f3f3f;
 bool vis[MAXN];
 int lowc[MAXN];
 int pre[MAXN];
 int cost[MAXN][MAXN];
-int Max[MAXN][MAXN];//Max[i][j]表示在最小生成树中从i到j的路径中的最大边权
+int Max[MAXN][MAXN]; // longest edge from i to j on mst
 bool used[MAXN][MAXN];
 int Prim(int n)
 {
@@ -52,7 +46,7 @@ int Prim(int n)
 	}
 	return ans;
 }
-int smst(int n,int ans)
+int smst(int n,int ans) //point id start from 0
 {
     int Min=INF;
     for(int i=0;i<n;i++)
@@ -61,6 +55,6 @@ int smst(int n,int ans)
             {
                 Min=min(Min,ans+cost[i][j]-Max[i][j]);
             }
-    if(Min==INF)return -1;//不存在
+    if(Min==INF)return -1;// no
     return Min;
 }

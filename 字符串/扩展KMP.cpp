@@ -1,8 +1,4 @@
-/*
- * 扩展KMP算法
- */
-//next[i]:x[i...m-1]与x[0...m-1]的最长公共前缀
-//extend[i]:y[i...n-1]与x[0...m-1]的最长公共前缀
+//next[]: x[i..m-1] x[0..m-1] lcp
 void pre_EKMP(char x[],int m,int next[])
 {
 	next[0]=m;
@@ -24,6 +20,7 @@ void pre_EKMP(char x[],int m,int next[])
 		}
 	}
 }
+//extend[]: y[i..n-1] x[0..m-1] lcp
 void EKMP(char x[],int m,char y[],int n,int next[],int extend[]) 
 {
 	pre_EKMP(x,m,next);
